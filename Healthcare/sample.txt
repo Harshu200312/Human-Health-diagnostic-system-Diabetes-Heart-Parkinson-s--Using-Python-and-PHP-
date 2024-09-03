@@ -32,7 +32,7 @@ async function handleImageUpload() {
 async function captureImage(imageFile) {
   if (active) return;
   const image = await fileToGenerativePart(imageFile);
-  const API_KEY = "AIzaSyAtVvj4XM_wi9aOjyfvY4Vxq6Bqsm98yqg"
+  
   if (API_KEY.trim() === "") {
     show("Please provide an API_KEY.");
     return;
