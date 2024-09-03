@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Include custom CSS -->
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
+  </head>
+  <body>
+    <!-- header section start -->
+    <div class="header_section header_bg">
+      <div class="container-fluid">
+        <div class="main">
+          <div class="logo">
+            <div class="logo"><a href="/"><span style="color: white; font-size: xx-large; font-weight: bolder;">Harsh </span><span style="color: #873fd4; font-size: xx-large; font-weight: bolder;">Healthcare</span></a></div>
+          </div>
+          <div class="menu_text">
+            <ul>
+              <div class="togle_">
+                <div class="menu_main">
+                  <ul>
+                    <li>{% if 'user_id' not in session %}<a href="/login">Login</a>{% else %}{{ username }}{% endif %}</li>
+                    <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div id="myNav" class="overlay">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <div class="overlay-content">
+                  <a href="/">Home</a>
+                  <a href="/diabetes">Diabetes</a>
+                  <a href="/heart_disease">Heart Diseases</a>
+                  <a href="/parkinsons">Parkinson's</a>
+                  <a href="about">About</a>
+                  {% if 'user_id' in session %}
+                      <a href="/profile">Profile</a>
+                      <a href="/logout">Logout</a>
+                  {% else %}
+                      <a href="/login">Login</a>
+                  {% endif %}
+              </div>
+              </div>
+              <span class="navbar-toggler-icon"></span>
+              <span onclick="openNav()"><img src="../static/images/toogle-icon.png" class="toggle_menu" /></span>
+              <span onclick="openNav()"><img src="../static/images/toogle-icon1.png" class="toggle_menu_1" /></span>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- banner section start -->
+      <div class="container">
+        <div class="about_taital_main">
+          <h2 class="about_tag">About Us.</h2>
+          <div class="about_menu">
+            <ul>
+              <li>
+                <a href="index.html">Home</a>
+              </li>
+              <li>News</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- banner section end -->
+    </div>
+    <!-- header section end -->
+      <!-- about section start -->
+      <div class="about_section layout_padding">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-6">
+                  <div class="about_img"><img src="../static/images/img-1.png"></div>
+               </div>
+               <div class="col-md-6">
+                  <h1 class="about_taital">About Us.</span></h1>
+                  <p class="about_text">when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</p>
+                  <div class="read_bt"><a href="#">Read More</a></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- about section end -->
+     
+    <!-- footer section start -->
+    <div class="footer_section layout_padding">
+      <div class="container">
+        <div class="footer_section_2">
+          <div class="row">
+            <div class="col-lg-3 col-sm-6">
+              <h2 class="useful_text">Resources</h2>
+              <div class="footer_menu">
+                <ul>
+                  <li>
+                    <a href="#">What we do</a>
+                  </li>
+                  <li>
+                    <a href="#">Media</a>
+                  </li>
+                  <li>
+                    <a href="#">Travel Advice</a>
+                  </li>
+                  <li>
+                    <a href="#">Protection</a>
+                  </li>
+                  <li>
+                    <a href="#">Care</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <h2 class="useful_text">About</h2>
+              <p class="footer_text">Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various</p>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <h2 class="useful_text">Contact Us</h2>
+              <div class="location_text">
+                <ul>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-map-marker" aria-hidden="true"></i>
+                      <span class="padding_15">Location</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-phone" aria-hidden="true"></i>
+                      <span class="padding_15">Call +91 8097837008</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-envelope" aria-hidden="true"></i>
+                      <span class="padding_15">harsh@gmail.com</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <h2 class="useful_text">countrys</h2>
+              <div class="map_image">
+                <img src="../static/images/map-bg.png" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- footer section end -->
+
+    <!-- copyright section start -->
+    <div class="copyright_section">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <p class="copyright_text">
+              <p class="copyright_text">© 2023 All Rights Reserved. By <a href="https://profile.vstube.in" target="_blank"><span style="color: #873fd4;">Harshada Panmand</span></a></p>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- copyright section end -->
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript for opening/closing the navigation menu -->
+    <script>
+      function openNav() {
+        document.getElementById('myNav').style.width = '100%'
+      }
+      
+      function closeNav() {
+        document.getElementById('myNav').style.width = '0%'
+      }
+    </script>
+  </body>
+</html>

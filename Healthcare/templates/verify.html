@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Verify - OTP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <script>
+        function sendOTP() {
+            var emailInput = document.getElementById('email');
+            var otpSection = document.getElementById('otp-section');
+            var statusMessage = document.getElementById('status-message');
+            var sendotpbutton = document.getElementById('sendotp');
+            sendotpbutton.innerHTML = "SENDING...";
+
+
+            var email = emailInput.value;
+
+            fetch('/send-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `email=${email}`,
+            })
+            .then(response => response.text())
+            .then(result => {
+                statusMessage.innerHTML = result;
+                sendotpbutton.innerHTML = "RESEND OTP";
+                emailInput.style.display = 'none';
+                otpSection.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error sending OTP:', error);
+                statusMessage.innerHTML = 'Error occurred while sending OTP.';
+            });
+        }
+    </script>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-size: 14px;
+            background: url("../static/images/login-bg.jpg") center/cover, -webkit-linear-gradient(bottom, #0250c5, #873fd4);
+        }
+
+        form {
+            background-color: beige;
+            padding: 50px;
+            border-radius: 7px;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .page {
+            text-align: center;
+        }
+
+        .title {
+            font-weight: 700;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .field {
+            margin-top: 20px;
+        }
+
+        #email, #otp {
+            width: 100%;
+            height: 40px;
+            margin-top: 10px;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        label{
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        button {
+            width: 100%;
+            height: 40px;
+            margin-top: 20px;
+            background-color: #0250c5;
+            color: white;
+            border: none;
+            font-weight: 600;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0143ad;
+        }
+
+        input{
+            font-size: 16px;
+            border-radius: 7px;
+
+        }
+
+        #status-message {
+            font-weight: 700;
+            color: green;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        #otp-section {
+            display: none;
+        }
+        h3{
+            font-size: larger;
+            font-weight: 900;
+        }
+    </style>
+</head>
+<body>
+    <form action="/verify-otp" method="post">
+        <div class="page">
+            <center>
+                <div class="title">Verification Form</div>
+                <div id="status-message"></div>
+            </center>
+            <div class="field" id="email-section">
+                <label for="email">Email:</label>
+                <br>
+                <center>
+                    <input type="email" id="email" name="email" required placeholder="Email Id">
+                    <button id="sendotp" type="button" onclick="sendOTP()">Send OTP</button>
+                </center>
+                
+            </div>
+            
+
+            <div class="field" id="otp-section">
+                <label for="otp">Enter OTP:</label>
+                <input type="text" id="otp" name="otp" required>
+                <button type="submit">Verify OTP</button>
+            </div>
+            <h3>
+                Already have and account 😁
+                <a href="/login" style="text-decoration: none">Login.</a>
+            </h3>
+        </div>
+    </form>
+</body>
+</html>

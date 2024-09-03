@@ -1,0 +1,14 @@
+Flask
+numpy
+scikit-learn
+SQLAlchemy
+wraps
+MySQL-python
+flask_sqlalchemy
+mysqlclient
+sklearn
+scikit-learn
+secure-smtplib
+email-to
+datetime
+mysql-connector-python

@@ -1,0 +1,115 @@
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const responseElement = document.getElementById("response");
+const promptInput = document.getElementById("prompt");
+const imageInput = document.getElementById("imageInput");
+const canvas = document.getElementById("canvas");
+let active = false;
+
+promptInput.value = `Identify the plant leaf and detect any diseases. If it's not a leaf, mention that the image is not perfect.
+ give the response in shortest way just say which plant leave its is and which diseases it have. `;
+
+async function fileToGenerativePart(file) {
+  const base64EncodedDataPromise = new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result.split(",")[1]);
+    reader.readAsDataURL(file);
+  });
+  return {
+    inlineData: { data: await base64EncodedDataPromise, mimeType: file.type },
+  };
+}
+
+imageInput.addEventListener("change", handleImageUpload);
+
+async function handleImageUpload() {
+  const file = imageInput.files[0];
+  if (file) {
+    await captureImage(file);
+  }
+}
+
+async function captureImage(imageFile) {
+  if (active) return;
+  const image = await fileToGenerativePart(imageFile);
+  const API_KEY = "AIzaSyAtVvj4XM_wi9aOjyfvY4Vxq6Bqsm98yqg"
+  if (API_KEY.trim() === "") {
+    show("Please provide an API_KEY.");
+    return;
+  }
+
+  let genAI;
+  try {
+    genAI = new GoogleGenerativeAI(API_KEY);
+  } catch (e) {
+    show(`Oops something went wrong.\nError: ${e}`);
+  }
+
+  const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+  show("Loading... (this can take up to 30s)");
+  let res;
+  active = true;
+  try {
+    res = await model.generateContentStream([promptInput.value, image]);
+    let text = "";
+    for await (const chunk of res.stream) {
+      text += chunk.text();
+      show(text);
+    }
+  } catch (e) {
+    console.error(e);
+    show(`Oops something went wrong.\nError: ${e.toString()}`);
+    active = false;
+    return;
+  }
+
+  active = false;
+}
+
+function show(text) {
+  responseElement.innerText = text;
+}
+
+
+
+
+<!-- ######################################################################################### -->
+
+Do you experience frequent urination, especially at night?
+ans = yes 
+  Do you feel excessive thirst and drink more water than usual?
+ans = yes 
+  Have you noticed unexplained weight loss, even without trying to lose weight?
+ans = not saure 
+  Do you have increased hunger and appetite?
+ans = yes 
+  Do you experience fatigue and weakness, even after getting enough sleep?
+ans = yes
+  Do you have blurred vision or other vision problems?
+ans = little bit 
+  Do you have tingling or numbness in your hands or feet?
+ans = yes 
+  Do you have slow-healing sores or cuts?
+ans = don't know 
+  Do you have frequent infections, such as skin or urinary tract infections?
+ans = yes 
+  Do you have a family history of diabetes
+ans = no 
+
+according to this all question and answer can you predict that i have a chances of diabetes or not if yes then in which type and if not then is there is chance to be in some year ? 
+
+﻿Based on the information you have provided, it is possible that you may have type 2 diabetes. You have several symptoms that are commonly associated with this condition, including frequent urination, excessive thirst, unexplained weight loss, increased hunger and appetite, fatigue and weakness, blurred vision, tingling or numbness in the hands or feet, and frequent infections.
+
+However, it is important to note that these symptoms can also be caused by other conditions. To confirm a diagnosis of diabetes, you would need to undergo a blood test to measure your blood sugar levels.
+
+If you are concerned about your symptoms, it is important to see a doctor for evaluation. Early diagnosis and treatment of diabetes can help prevent or delay serious complications.
+
+**Type 1 or Type 2 Diabetes**
+
+The type of diabetes you may have cannot be determined based on the information you have provided. Type 1 diabetes is usually diagnosed in childhood or young adulthood, while type 2 diabetes is more common in adults over the age of 40.
+
+**Chances of Developing Diabetes in the Future**
+
+If you do not currently have diabetes, you may still be at risk of developing it in the future. This is especially true if you have a family history of diabetes or if you are overweight or obese.
+
+By making healthy lifestyle choices, such as eating a healthy diet, getting regular exercise, and maintaining a healthy weight, you can help reduce your risk of developing diabetes.﻿

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <!-- Your head content here -->
+    <script>
+        function sendOTP() {
+            var emailInput = document.getElementById('email');
+            var otpSection = document.getElementById('otp-section');
+            var statusMessage = document.getElementById('status-message');
+
+            var email = emailInput.value;
+
+            // You can perform additional client-side validation here if needed
+
+            fetch('/send-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `email=${email}`,
+            })
+            .then(response => response.text())
+            .then(result => {
+                // Display success or error message
+                statusMessage.innerHTML = result;
+
+                // Hide email input, show OTP section
+                emailInput.style.display = 'none';
+                otpSection.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error sending OTP:', error);
+                // Display error message
+                statusMessage.innerHTML = 'Error occurred while sending OTP.';
+            });
+        }
+    </script>
+</head>
+<body>
+    <form action="/verify-otp" method="post">
+        <div id="email-section">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <button type="button" onclick="sendOTP()">Send OTP</button>
+        </div>
+
+        <div id="otp-section" style="display: none;">
+            <label for="otp">Enter OTP:</label>
+            <input type="text" id="otp" name="otp" required>
+            <button type="submit">Verify OTP</button>
+        </div>
+
+        <div id="status-message"></div>
+    </form>
+</body>
+</html>

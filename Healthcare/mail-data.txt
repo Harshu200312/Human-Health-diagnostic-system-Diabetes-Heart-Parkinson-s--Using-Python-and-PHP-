@@ -1,0 +1,8 @@
+passcode = opkwamfdedpgvsab
+
+email = ps4759158@gmail.com
+
+port = 465
+
+
+api-key = "AIzaSyAyMoD8nApj36waFPUOQI93K6hT7nq2MLk"
